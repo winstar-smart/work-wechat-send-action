@@ -1,16 +1,19 @@
 # Github Action 企业微信消息发送插件
 通过企业微信自定义应用发送通知，支持执行失败后发送失败通知、自定义模板
 
-支持消息类型：
-* 文本
-* markdown
+## 消息类型
+* 文本消息
+* markdown消息
+* 文本卡片消息
 
-支持发送模式：
+## 发送模式
 * 调用时发送
 * 完成时发送
 * 调用及结束时均发送
 
-使用方式：
+## 使用方式
+
+### Markdown消息示例
 
 ```yaml
 - name: 企业微信markdown消息发送
@@ -38,7 +41,25 @@
         >[修改会议信息](https://work.weixin.qq.com)"
 ```
 
-自定义action参考文档
+### 文本卡片消息示例
+
+```yaml
+- name: 企业微信文本卡片消息发送
+  uses: zhangxr/work-wechat-send-action@main
+  with:
+    wechat_id: xxxx # 企业微信id
+    agent_secret: xxxx # 应用密钥
+    agent_id: 1000002 #应用id
+    to_user:  @all # 消息接收人，多个使用竖线|分割,默认为空发送给所有人
+    msgtype: textcard
+    send_step: main # 消息发送时机 main 正常流程  post action 执行完成后发送
+    title: "卡片标题"
+    content: "<div class=\\\"gray\\\">${{ gitea.event.head_commit.timestamp }}</div><div class=\\\"normal\\\">仓库名称：${{ gitea.event.repository.full_name }}</div><div class=\\\"normal\\\">分支名称：${{ gitea.ref_name }}</div><div class=\\\"normal\\\">工作流程：${{ gitea.workflow }}</div><div class=\\\"normal\\\">提交信息：${{ gitea.event.head_commit.id }}</div><div class=\\\"highlight\\\">${{ gitea.event.head_commit.message }}</div>" # 描述内容
+    url: "${{ gitea.event.repository.html_url }}/src/branch/${{ gitea.ref_name }}" # 卡片跳转URL
+    btntxt: "前往仓库" # 卡片按钮文本
+```
+
+## 自定义action参考文档
 https://docs.github.com/cn/actions/creating-actions/about-custom-actions#further-reading
 
 
