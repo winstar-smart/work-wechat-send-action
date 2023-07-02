@@ -19,8 +19,8 @@ CONTENT=$6
 CACHE_PATH=$7
 SEND_STEP=$8
 TITLE=$9
-URL=$10
-BTNTXT=$11
+URL=${10}
+BTNTXT=${11}
 
 if [ "x$SEND_STEP" != "xpost" ]; then
     echo "::notice send_step param value is not post , skip exec";
