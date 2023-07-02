@@ -1,0 +1,15 @@
+{
+  "touser" : "",
+  "msgtype" : "textcard",
+  "agentid" : 1,
+  "textcard" : {
+    "title" : "",
+    "description" : "",
+    "url" : "",
+    "btntxt" : ""
+  },
+  "safe":0,
+  "enable_id_trans": 0,
+  "enable_duplicate_check": 0,
+  "duplicate_check_interval": 60
+}

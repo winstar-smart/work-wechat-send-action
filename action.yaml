@@ -21,7 +21,7 @@ inputs:
     required: false
     default: '@all'
   msgtype:
-    description: '消息类型，当前支持text,markdown两种类型'
+    description: '消息类型，当前支持text,markdown,textcard类型'
     required: false
     default: 'text'
   content:
@@ -36,6 +36,18 @@ inputs:
     description: '消息发送时机 调用时(main)或完成时(post)'
     required: false
     default: 'main'
+  title:
+    description: '消息标题，仅textcard支持'
+    required: false
+    default: ''
+  url:
+    description: '消息URL，仅textcard支持'
+    required: false
+    default: ''
+  btntxt:
+    description: '消息按钮文字，仅textcard支持'
+    required: false
+    default: '详情'
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -48,5 +60,8 @@ runs:
     - ${{ inputs.content }}
     - ${{ inputs.cache_path }}
     - ${{ inputs.send_step }}
+    - ${{ inputs.title }}
+    - ${{ inputs.url }}
+    - ${{ inputs.btntxt }}
   entrypoint: '/opt/bin/main.sh'
   post-entrypoint: '/opt/bin/post.sh'

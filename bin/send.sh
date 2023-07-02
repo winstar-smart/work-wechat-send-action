@@ -4,8 +4,16 @@
 
 
 WORK_DIR=`dirname $0`
-content_script='.'${MSG_TYPE}'.content="'${CONTENT}'"'
-cat $WORK_DIR/../template/${MSG_TYPE}.json | jq .agentid=$AGENT_ID | jq '.touser="'$TO_USER'"' |  jq "$content_script"  > ./.__wechat_message_body.json
+if [ "${MSG_TYPE}" == "textcard" ]; then
+    title_script='.'${MSG_TYPE}'.title="'${TITLE}'"'
+    description_script='.'${MSG_TYPE}'.description="'${CONTENT}'"'
+    url_script='.'${MSG_TYPE}'.url="'${URL}'"'
+    btntxt_script='.'${MSG_TYPE}'.btntxt="'${BTNTXT}'"'
+    cat $WORK_DIR/../template/${MSG_TYPE}.json | jq .agentid=$AGENT_ID | jq '.touser="'$TO_USER'"' |  jq "$title_script" |  jq "$description_script" |  jq "$url_script" |  jq "$btntxt_script"  > ./.__wechat_message_body.json
+else
+    content_script='.'${MSG_TYPE}'.content="'${CONTENT}'"'
+    cat $WORK_DIR/../template/${MSG_TYPE}.json | jq .agentid=$AGENT_ID | jq '.touser="'$TO_USER'"' |  jq "$content_script"  > ./.__wechat_message_body.json
+fi
 MESSAGE_BODY=`cat ./.__wechat_message_body.json | jq .`
 echo "$MESSAGE_BODY"
 # 获取token

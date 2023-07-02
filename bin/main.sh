@@ -7,6 +7,9 @@
 #    - ${{ inputs.msgtype }}
 #    - ${{ inputs.content }}
 #    - ${{ inputs.cache_path }}
+#    - ${{ inputs.title }}
+#    - ${{ inputs.url }}
+#    - ${{ inputs.btntxt }}
 WECHAT_ID=$1
 AGENT_SECRET=$2
 AGENT_ID=$3
@@ -15,6 +18,9 @@ MSG_TYPE=$5
 CONTENT=$6
 CACHE_PATH=$7
 SEND_STEP=$8
+TITLE=$9
+URL=$10
+BTNTXT=$11
 
 if [ "x$SEND_STEP" != "xmain" ]; then
     echo "::notice send_step param value is not main , skip exec"
